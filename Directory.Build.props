@@ -11,5 +11,8 @@
          separately-replaceable assemblies: never enable trimming, single-file with
          compression, or IL merging for release builds. -->
     <PublishTrimmed>false</PublishTrimmed>
+    <!-- NAPS2.Sdk marks its public API [RequiresPreviewFeatures] while in beta;
+         consumers must opt in or every call is a CA2252 error. -->
+    <EnablePreviewFeatures>true</EnablePreviewFeatures>
   </PropertyGroup>
 </Project>
