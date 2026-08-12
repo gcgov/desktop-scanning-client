@@ -15,7 +15,7 @@ public sealed class ScanJobManager : IDisposable
     private readonly ScanExecutor _executor;
     private readonly TimeSpan _retention;
     private readonly ConcurrentDictionary<string, ScanJob> _jobs = new();
-    private readonly Timer _pruneTimer;
+    private readonly System.Threading.Timer _pruneTimer;
     private ScanJob? _activeJob;
     private readonly Lock _startLock = new();
 
@@ -23,7 +23,7 @@ public sealed class ScanJobManager : IDisposable
     {
         _executor = executor;
         _retention = retention ?? TimeSpan.FromMinutes(10);
-        _pruneTimer = new Timer(_ => Prune(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
+        _pruneTimer = new System.Threading.Timer(_ => Prune(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
 
     /// <summary>Raised when a job reaches a terminal state (completed, failed or canceled).</summary>
