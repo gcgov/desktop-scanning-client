@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore ScanBridge.sln
+
+      - name: Build
+        run: dotnet build ScanBridge.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test ScanBridge.sln -c Release --no-build --verbosity normal
